@@ -60,7 +60,7 @@ li {
 
 
 .text-center {
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
 }
 
 .upload-button {
@@ -73,7 +73,7 @@ li {
 }
 
 .upload-button:hover {
-  background-color: #0056b3;
+  background-color: #03274e;
 }
 
 .browse-label {
@@ -86,10 +86,10 @@ li {
 }
 
 .file-uploader-container {
-  border: 2px dashed #ddd;
+  border: 2px dashed #061bd8;
   padding: 20px;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #ffffff00;
 }
 
 .custom-file-upload {
@@ -104,8 +104,8 @@ li {
   border: 2px dashed #007bff;
   padding: 20px;
   border-radius: 5px;
-  background-color: #fff;
-}
+  background-color: #ffffff00;
+}s
 
 .file-info {
   display: flex;

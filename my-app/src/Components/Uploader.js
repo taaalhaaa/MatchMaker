@@ -25,9 +25,31 @@ const FileUploader = () => {
     }
   };
 
-  const handleDelete = () => {
-    setSelectedFile(null);
-    setExcelData(null);
+  const handleFileDrop = (event) => {
+    event.preventDefault();
+    const file = event.dataTransfer.files[0];
+    if (file) {
+      setSelectedFile(file);
+      if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
+        readExcel(file);
+      } else if (file.name.endsWith('.csv')) {
+        readCSV(file);
+      } else if (file.name.endsWith('.db')) {
+        // Handle database file
+        alert('Database file selected');
+      } else {
+        // Handle unsupported file type
+        alert('Unsupported file type');
+      }
+    }
+  };
+
+  const handleDragOver = (event) => {
+    event.preventDefault();
+  };
+
+  const handleButtonClick = () => {
+    document.getElementById('fileInput').click();
   };
 
   const readExcel = (file) => {
@@ -55,51 +77,34 @@ const FileUploader = () => {
 
   return (
     <div className="file-uploader-container">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        {selectedFile ? (
-          <div>
-            <span className="file-info">
-              <i className="bi bi-file-earmark-text"></i>
-              {selectedFile.name} ({(selectedFile.size / 1024).toFixed(2)} KB)
-            </span>
-            <button className="btn btn-danger ms-3" onClick={handleDelete}>
-              <i className="bi bi-trash"></i> Delete
-            </button>
-          </div>
-        ) : (
-          <label className="btn btn-primary">
-            <i className="bi bi-file-earmark-plus"></i> Choose File
-            <input
-              type="file"
-              id="fileInput"
-              onChange={handleFileSelect}
-              className="d-none"
-              accept=".xlsx, .xls, .csv, .db"
-            />
-          </label>
-        )}
+      <h2 className="text-center mb-4 big-heading">
+        <span className="blue-text">See or Make Your Own File Hierarchy!</span>
+      </h2>
+      <div
+        className="drop-zone"
+        onDrop={handleFileDrop}
+        onDragOver={handleDragOver}
+      >
+        <p className="text-center">
+          <i className="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+          Drag and drop your file here
+          <br />
+          or
+          <br />
+          <button className="upload-button" onClick={handleButtonClick}>
+            Click to browse
+          </button>
+          <br />
+
+          <input
+            type="file"
+            id="fileInput"
+            onChange={handleFileSelect}
+            className="file-input"
+            accept=".xlsx, .xls, .csv, .db"
+          />
+        </p>
       </div>
-      {!selectedFile && (
-        <div
-          className="drop-zone"
-          onDrop={(event) => {
-            event.preventDefault();
-            handleFileSelect(event);
-          }}
-          onDragOver={(event) => event.preventDefault()}
-        >
-          <p className="text-center">
-            <i className="fas fa-cloud-upload-alt fa-3x mb-3"></i>
-            Drag and drop your file here
-            <br />
-            or
-            <br />
-            <label htmlFor="fileInput" className="upload-button">
-              Click to browse
-            </label>
-          </p>
-        </div>
-      )}
       {excelData && (
         <div className="file-details mt-4">
           <h4 className="text-center1">File Content</h4>
