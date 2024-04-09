@@ -60,7 +60,7 @@ li {
 
 
 .text-center {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
 
 .upload-button {
@@ -104,8 +104,8 @@ li {
   border: 2px dashed #007bff;
   padding: 20px;
   border-radius: 5px;
-  background-color: #ffffff00;
-}s
+  background-color: #131111;
+}
 
 .file-info {
   display: flex;
