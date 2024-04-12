@@ -115,3 +115,104 @@ li {
 .file-info i {
   margin-right: 5px;
 }
+
+.tree {
+  padding-left: 90px;
+}
+
+.tree li {
+  list-style-type: none;
+  position: relative;
+}
+
+.tree li::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  border-left: 2px solid #ccc; /* Increase border thickness for a bolder tree structure */
+  width: 0;
+  height: 100%;
+}
+
+.tree li:last-child::before {
+  height: 50%;
+}
+
+.tree li::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -10px;
+  border-top: 2px solid #ccc; /* Add border-top for vertical connection */
+  width: 10px; /* Adjust width to make the connection reach the node */
+  height: 50%;
+  z-index: -1; /* Move behind the node */
+}
+
+.tree li span {
+  display: inline-block;
+  padding: 8px 12px; /* Adjust padding for better spacing */
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+
+/* CSS for table view */
+.table-view {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-view th,
+.table-view td {
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+
+.table-view th {
+  background-color: #f2f2f2;
+}
+
+.table-view tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-view tr:hover {
+  background-color: #f2f2f2;
+}
+
+/* CSS for buttons */
+.buttons-container {
+  margin-top: 20px;
+}
+
+.btn {
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}

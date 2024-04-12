@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './style.css';
+import './style.css'; // Import your custom CSS file
 import * as XLSX from 'xlsx';
 
 const FileUploader = () => {
@@ -112,6 +112,10 @@ const FileUploader = () => {
   };
 
   const renderTreeNodes = (data) => {
+    if (!Array.isArray(data)) {
+      return null; // or handle appropriately
+    }
+
     return (
       <ul className="tree">
         {data.map((node, index) => (
@@ -122,6 +126,22 @@ const FileUploader = () => {
         ))}
       </ul>
     );
+  };
+
+  const handleAddGroup = () => {
+    // Implement logic to add a group
+  };
+
+  const handleAddLevel = () => {
+    // Implement logic to add a level
+  };
+
+  const handleUpdateSortValue = () => {
+    // Implement logic to update sort value
+  };
+
+  const handleUpdateLevelValue = () => {
+    // Implement logic to update level value
   };
 
   return (
@@ -154,6 +174,16 @@ const FileUploader = () => {
           />
         </p>
       </div>
+      {/* Buttons for adding group and level */}
+      <div className="buttons-container mt-3">
+        <button onClick={handleAddGroup} className="btn btn-primary mr-2">Add Group</button>
+        <button onClick={handleAddLevel} className="btn btn-primary mr-2">Add Level</button>
+      </div>
+      {/* Buttons for updating sort value and level value */}
+      <div className="buttons-container mt-3">
+        <button onClick={handleUpdateSortValue} className="btn btn-success mr-2">Update Sort Value</button>
+        <button onClick={handleUpdateLevelValue} className="btn btn-success">Update Level Value</button>
+      </div>
       {excelData && preprocessedData && (
         <div className="file-details mt-4">
           <div className="view-toggle">
@@ -164,19 +194,19 @@ const FileUploader = () => {
           {isTreeView ? (
             <div>
               <h4 className="text-center1">Hierarchical View</h4>
-              {Array.isArray(preprocessedData) && preprocessedData.length > 0 ? (
-                renderTreeNodes(preprocessedData)
-              ) : (
-                <p>No hierarchical data to display</p>
-              )}
+              <div className="hierarchical-view">
+                {Array.isArray(preprocessedData) && preprocessedData.length > 0 ? (
+                  renderTreeNodes(preprocessedData)
+                ) : (
+                  <p>No hierarchical data to display</p>
+                )}
+              </div>
             </div>
           ) : (
             <TableView excelData={excelData} />
           )}
         </div>
       )}
-
-
     </div>
   );
 };
@@ -186,15 +216,17 @@ const TableView = ({ excelData }) => {
   return (
     <div>
       <h4 className="text-center1">Table View</h4>
-      <ul className="list-group">
-        {excelData.map((row, rowIndex) => (
-          <li key={rowIndex} className="list-group-item">
-            {row.map((cell, cellIndex) => (
-              <span key={cellIndex}>{cell}</span>
-            ))}
-          </li>
-        ))}
-      </ul>
+      <table className="table-view">
+        <tbody>
+          {excelData.map((row, rowIndex) => (
+            <tr key={rowIndex}>
+              {row.map((cell, cellIndex) => (
+                <td key={cellIndex}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
