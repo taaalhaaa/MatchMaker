@@ -1,7 +1,8 @@
-.file-uploader-container {
-  max-width: 570px;
-  margin: 0 auto;
-  padding: 70px;
+
+.row-center {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 
 .custom-navbar {
@@ -9,12 +10,18 @@
   font-size: 25px;
   background-color: transparent !important;
 }
-
+.buttons-left {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
 .drop-zone {
   border: 2px dashed #ccc;
   padding: 20px;
   text-align: center;
   cursor: pointer;
+  margin: auto; 
+  width: 500px; /* Set a specific width */
 }
 
 .file-input {
@@ -29,6 +36,12 @@
   background-color: #f0f0f0;
   padding: 10px;
   border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: fit-content;
+  margin-top: 55px;
+  margin-left: 109px;
 }
 
 ul {
@@ -73,16 +86,12 @@ li {
 }
 
 .upload-button:hover {
-  background-color: #03274e;
+  background-color: #0142f3;
 }
 
 .browse-label {
   font-size: 16px;
   margin-top: 10px;
-}
-
-.file-input {
-  display: none;
 }
 
 .file-uploader-container {
@@ -186,7 +195,7 @@ li {
 
 /* CSS for buttons */
 .buttons-container {
-  margin-top: 20px;
+  margin-top: 175px;
 }
 
 .btn {
@@ -215,4 +224,47 @@ li {
 
 .btn-success:hover {
   background-color: #218838;
+}
+
+
+
+
+.button-55 {
+  align-self: center;
+  background-color: #fff;
+  background-image: none;
+  background-position: 0 90%;
+  background-repeat: repeat no-repeat;
+  background-size: 4px 3px;
+  border-radius: 15px 225px 255px 15px 15px 255px 225px 15px;
+  border-style: solid;
+  border-width: 2px;
+  box-shadow: rgba(0, 0, 0, .2) 15px 28px 25px -18px;
+  box-sizing: border-box;
+  color: #41403e;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Neucha, sans-serif;
+  font-size: 1rem;
+  line-height: 23px;
+  outline: none;
+  padding: .75rem;
+  text-decoration: none;
+  transition: all 235ms ease-in-out;
+  border-bottom-left-radius: 15px 255px;
+  border-bottom-right-radius: 225px 15px;
+  border-top-left-radius: 255px 15px;
+  border-top-right-radius: 15px 225px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-55:hover {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 8px -5px;
+  transform: translate3d(0, 2px, 0);
+}
+
+.button-55:focus {
+  box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
 }

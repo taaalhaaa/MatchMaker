@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'; // Import your custom CSS file
 import * as XLSX from 'xlsx';
+import ButtonsLeft from './ButtonsLeft';
+import ButtonsBottom from './ButtonsBottom';
+import HierarchicalView from './HierarchicalView';
+import TableView from './TableView';
 
 const FileUploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -149,11 +153,7 @@ const FileUploader = () => {
       <h2 className="text-center mb-4 big-heading">
         <span className="blue-text">See or Make Your Own File Hierarchy!</span>
       </h2>
-      <div
-        className="drop-zone"
-        onDrop={handleFileDrop}
-        onDragOver={handleDragOver}
-      >
+      <div className="drop-zone" onDrop={handleFileDrop} onDragOver={handleDragOver}>
         <p className="text-center">
           <i className="fas fa-cloud-upload-alt fa-3x mb-3"></i>
           Drag and drop your file here
@@ -164,69 +164,37 @@ const FileUploader = () => {
             Click to browse
           </button>
           <br />
-
           <input
             type="file"
-            id="fileInput"
+            id="fileInput"  // Ensure this ID is present
             onChange={handleFileSelect}
             className="file-input"
             accept=".xlsx, .xls, .csv, .db"
           />
+
         </p>
       </div>
-      {/* Buttons for adding group and level */}
-      <div className="buttons-container mt-3">
-        <button onClick={handleAddGroup} className="btn btn-primary mr-2">Add Group</button>
-        <button onClick={handleAddLevel} className="btn btn-primary mr-2">Add Level</button>
-      </div>
-      {/* Buttons for updating sort value and level value */}
-      <div className="buttons-container mt-3">
-        <button onClick={handleUpdateSortValue} className="btn btn-success mr-2">Update Sort Value</button>
-        <button onClick={handleUpdateLevelValue} className="btn btn-success">Update Level Value</button>
-      </div>
-      {excelData && preprocessedData && (
-        <div className="file-details mt-4">
-          <div className="view-toggle">
-            <button onClick={toggleView} className="toggle-button">
-              {isTreeView ? 'Switch to Table View' : 'Switch to Hierarchical View'}
-            </button>
-          </div>
-          {isTreeView ? (
-            <div>
-              <h4 className="text-center1">Hierarchical View</h4>
-              <div className="hierarchical-view">
-                {Array.isArray(preprocessedData) && preprocessedData.length > 0 ? (
-                  renderTreeNodes(preprocessedData)
-                ) : (
-                  <p>No hierarchical data to display</p>
-                )}
-              </div>
-            </div>
-          ) : (
-            <TableView excelData={excelData} />
-          )}
-        </div>
-      )}
-    </div>
-  );
-};
+      <div class="row-center">
+        <ButtonsLeft handleAddGroup={handleAddGroup} handleAddLevel={handleAddLevel} />
+        {excelData && preprocessedData && (
 
-const TableView = ({ excelData }) => {
-  // Implementation for table view
-  return (
-    <div>
-      <h4 className="text-center1">Table View</h4>
-      <table className="table-view">
-        <tbody>
-          {excelData.map((row, rowIndex) => (
-            <tr key={rowIndex}>
-              {row.map((cell, cellIndex) => (
-                <td key={cellIndex}>{cell}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <div className="file-details">
+            <div className="view-toggle">
+              <button onClick={toggleView} className="toggle-button">
+                {isTreeView ? 'Switch to Table View' : 'Switch to Hierarchical View'}
+              </button>
+            </div>
+            {isTreeView ? (
+
+              <HierarchicalView preprocessedData={preprocessedData} renderTreeNodes={renderTreeNodes} />
+            ) : (
+              <TableView excelData={excelData} />
+            )}
+
+          </div>
+        )}
+      </div>
+      <ButtonsBottom handleUpdateSortValue={handleUpdateSortValue} handleUpdateLevelValue={handleUpdateLevelValue} />
     </div>
   );
 };
