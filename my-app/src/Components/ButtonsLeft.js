@@ -11,7 +11,7 @@ const ButtonsLeft = ({ handleAddGroup, handleAddLevel }) => {
         </div>
         <div className="mb-2">
           <button class="button-55" onClick={handleAddLevel} className="btn btn-primary">Add Level</button>
-        </div>
+        </div>  
       </div>
     </div>
   );

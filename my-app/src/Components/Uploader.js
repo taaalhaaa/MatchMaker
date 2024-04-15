@@ -7,11 +7,27 @@ import ButtonsBottom from './ButtonsBottom';
 import HierarchicalView from './HierarchicalView';
 import TableView from './TableView';
 
+const FileInformationBar = ({ selectedFile }) => {
+  return (
+    <div className="file-information-bar">
+      <div className="file-info">
+       <i class="bi bi-file-earmark-excel-fill"></i>
+        <div className="file-details2">
+          <span className="file-name">File Selected: {selectedFile.name}</span>
+          <span className="file-size">File Size: {(selectedFile.size / 1024).toFixed(2)} KB</span>
+          
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const FileUploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const [isTreeView, setIsTreeView] = useState(true); // State to manage view mode
   const [preprocessedData, setPreprocessedData] = useState(null);
+  const [dragZoneVisible, setDragZoneVisible] = useState(true);
 
   useEffect(() => {
     if (excelData) {
@@ -24,6 +40,7 @@ const FileUploader = () => {
     const file = event.target.files[0];
     if (file) {
       setSelectedFile(file);
+      setDragZoneVisible(false); // Hide drag zone after file selection
       if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
         readExcel(file);
       } else if (file.name.endsWith('.csv')) {
@@ -36,29 +53,6 @@ const FileUploader = () => {
         alert('Unsupported file type');
       }
     }
-  };
-
-  const handleFileDrop = (event) => {
-    event.preventDefault();
-    const file = event.dataTransfer.files[0];
-    if (file) {
-      setSelectedFile(file);
-      if (file.name.endsWith('.xlsx') || file.name.endsWith('.xls')) {
-        readExcel(file);
-      } else if (file.name.endsWith('.csv')) {
-        readCSV(file);
-      } else if (file.name.endsWith('.db')) {
-        // Handle database file
-        alert('Database file selected');
-      } else {
-        // Handle unsupported file type
-        alert('Unsupported file type');
-      }
-    }
-  };
-
-  const handleDragOver = (event) => {
-    event.preventDefault();
   };
 
   const handleButtonClick = () => {
@@ -153,48 +147,65 @@ const FileUploader = () => {
       <h2 className="text-center mb-4 big-heading">
         <span className="blue-text">See or Make Your Own File Hierarchy!</span>
       </h2>
-      <div className="drop-zone" onDrop={handleFileDrop} onDragOver={handleDragOver}>
-        <p className="text-center">
-          <i className="fas fa-cloud-upload-alt fa-3x mb-3"></i>
-          Drag and drop your file here
-          <br />
-          or
-          <br />
-          <button className="upload-button" onClick={handleButtonClick}>
-            Click to browse
-          </button>
-          <br />
-          <input
-            type="file"
-            id="fileInput"  // Ensure this ID is present
-            onChange={handleFileSelect}
-            className="file-input"
-            accept=".xlsx, .xls, .csv, .db"
-          />
-
-        </p>
-      </div>
-      <div class="row-center">
-        <ButtonsLeft handleAddGroup={handleAddGroup} handleAddLevel={handleAddLevel} />
-        {excelData && preprocessedData && (
-
-          <div className="file-details">
-            <div className="view-toggle">
-              <button onClick={toggleView} className="toggle-button">
-                {isTreeView ? 'Switch to Table View' : 'Switch to Hierarchical View'}
-              </button>
+      {dragZoneVisible && (
+        <div className="drop-zone" onDrop={handleFileSelect} onDragOver={(event) => event.preventDefault()}>
+          <p className="text-center">
+            <i className="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+            Drag and drop your file here
+            <br />
+            or
+            <br />
+            <button className="upload-button" onClick={handleButtonClick}>
+              Click to browse
+            </button>
+            <br/>
+            <input
+              type="file"
+              id="fileInput"  // Ensure this ID is present
+              onChange={handleFileSelect}
+              className="file-input"
+              accept=".xlsx, .xls, .csv, .db"
+            />
+          </p>
+        </div>
+      )}
+      {selectedFile && <FileInformationBar selectedFile={selectedFile} />} {/* Render file information bar if file is selected */}
+      {selectedFile && (
+        <div className="row-center">
+          <ButtonsLeft handleAddGroup={handleAddGroup} handleAddLevel={handleAddLevel} />
+          {excelData && preprocessedData && (
+            <div className="file-details">
+              <div className="view-toggle">
+                <button onClick={toggleView} className="toggle-button">
+                  {isTreeView ? 'Switch to Table View' : 'Switch to Hierarchical View'}
+                </button>
+                
+              </div>
+              {isTreeView ? (
+                <HierarchicalView preprocessedData={preprocessedData} renderTreeNodes={renderTreeNodes} />
+              ) : (
+                <TableView excelData={excelData} />
+              )}
             </div>
-            {isTreeView ? (
-
-              <HierarchicalView preprocessedData={preprocessedData} renderTreeNodes={renderTreeNodes} />
-            ) : (
-              <TableView excelData={excelData} />
-            )}
-
-          </div>
-        )}
-      </div>
-      <ButtonsBottom handleUpdateSortValue={handleUpdateSortValue} handleUpdateLevelValue={handleUpdateLevelValue} />
+          )}
+          {excelData && preprocessedData && (
+            <div className="file-details">
+              <div className="view-toggle">
+                <button onClick={toggleView} className="toggle-button">
+                  {isTreeView ? 'Switch to Table View' : 'Switch to Hierarchical View'}
+                </button>
+                
+              </div>
+              {isTreeView ? (
+                <HierarchicalView preprocessedData={preprocessedData} renderTreeNodes={renderTreeNodes} />
+              ) : (
+                <TableView excelData={excelData} />
+              )}
+            </div>
+          )}
+        </div>
+      )}
+      {selectedFile && <ButtonsBottom handleUpdateSortValue={handleUpdateSortValue} handleUpdateLevelValue={handleUpdateLevelValue} />}
     </div>
   );
 };

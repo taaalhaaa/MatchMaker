@@ -1,4 +1,3 @@
-
 .row-center {
   display: flex;
   flex-direction: row;
@@ -10,18 +9,21 @@
   font-size: 25px;
   background-color: transparent !important;
 }
+
 .buttons-left {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
 }
+
 .drop-zone {
   border: 2px dashed #ccc;
   padding: 20px;
   text-align: center;
   cursor: pointer;
-  margin: auto; 
-  width: 500px; /* Set a specific width */
+  margin: auto;
+  width: 500px;
+  /* Set a specific width */
 }
 
 .file-input {
@@ -139,7 +141,8 @@ li {
   position: absolute;
   top: 0;
   left: -10px;
-  border-left: 2px solid #ccc; /* Increase border thickness for a bolder tree structure */
+  border-left: 2px solid #ccc;
+  /* Increase border thickness for a bolder tree structure */
   width: 0;
   height: 100%;
 }
@@ -153,19 +156,24 @@ li {
   position: absolute;
   top: 0;
   left: -10px;
-  border-top: 2px solid #ccc; /* Add border-top for vertical connection */
-  width: 10px; /* Adjust width to make the connection reach the node */
+  border-top: 2px solid #ccc;
+  /* Add border-top for vertical connection */
+  width: 10px;
+  /* Adjust width to make the connection reach the node */
   height: 50%;
-  z-index: -1; /* Move behind the node */
+  z-index: -1;
+  /* Move behind the node */
 }
 
 .tree li span {
   display: inline-block;
-  padding: 8px 12px; /* Adjust padding for better spacing */
+  padding: 8px 12px;
+  /* Adjust padding for better spacing */
   border: 1px solid #ccc;
   border-radius: 3px;
   background-color: #f9f9f9;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Add shadow for depth */
 }
 
 
@@ -195,14 +203,16 @@ li {
 
 /* CSS for buttons */
 .buttons-container {
-  margin-top: 175px;
+  
+  margin-top: 100px;
 }
 
 .btn {
   font-size: 16px;
+  margin-right: 30px;
   padding: 10px 20px;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: crosshair;
   transition: background-color 0.3s ease;
 }
 
@@ -267,4 +277,39 @@ li {
 
 .button-55:focus {
   box-shadow: rgba(0, 0, 0, .3) 2px 8px 4px -6px;
+}
+
+.file-information-bar {
+  background-color: #ffffffd2;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: fit-content;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+}
+
+.file-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #000000;
+  /* Change the color as desired */
+}
+
+.file-details2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-name {
+  font-weight: bold;
+}
+
+.file-size {
+  color: #757575;
 }
